@@ -5,10 +5,7 @@ import me.smalur.entity.Vehicle;
 import me.smalur.service.ServiceVehicle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.awt.*;
 import java.util.List;
@@ -30,9 +27,10 @@ public class ControllerVehicle {
     }
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE
             , consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @CrossOrigin
     public List<Vehicle> put(@RequestBody List<Vehicle> vehicles){
-
         return servicevehicle.put(vehicles);
+
 
     }
 }

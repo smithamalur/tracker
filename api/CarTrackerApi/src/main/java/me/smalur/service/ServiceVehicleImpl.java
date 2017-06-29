@@ -2,6 +2,7 @@ package me.smalur.service;
 
 import me.smalur.entity.Vehicle;
 import me.smalur.exception.BadRequestException;
+import me.smalur.exception.ResourceNotFoundException;
 import me.smalur.repository.VehicleRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,10 +17,11 @@ import java.util.List;
 public class ServiceVehicleImpl implements ServiceVehicle{
     @Autowired
     VehicleRepo vrep;
+
     @Transactional
     public List<Vehicle> put(List<Vehicle> v){
         if( v== null || v.size()==0){
-            throw new BadRequestException("PUT request must have a body")
+            throw new BadRequestException("PUT request should have a body");
         }
 
         for(Vehicle vehicle: v){
@@ -34,9 +36,11 @@ public class ServiceVehicleImpl implements ServiceVehicle{
         }
         return v;
     }
+
     public Vehicle find(String vin) {
         return vrep.find(vin);
     }
+
 
     public Vehicle update(Vehicle v) {
         Vehicle tempvehicle = this.find(v.getVin());
