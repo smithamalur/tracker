@@ -1,16 +1,26 @@
 package me.smalur.entity;
 
+import org.hibernate.annotations.Type;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
 /**
  * Created by Smitha on 6/29/2017.
  */
+@Entity
 public class Readings {
 
+    @Id
+    @Column(columnDefinition = "CHAR(17)")
     private String vin;
 
     private double latitude;
-
     private double longitude;
 
+    @Column (columnDefinition = "VARCHAR(24)")
     private String timestamp;
 
     private float fuelVolume;
@@ -18,6 +28,32 @@ public class Readings {
     private float speed;
 
     private float engineHp;
+
+    @Type(type = "numeric_boolean")
+    private boolean checkEngineLoghtOn;
+
+    @Type(type = "numeric_boolean")
+    private boolean engineCoolantLow;
+
+    @Type(type = "numeric_boolean")
+    private boolean cruiseControlOn;
+
+    private float engineRpm;
+
+    @OneToOne
+    private Tyre tyre;
+
+    @Column(columnDefinition = "numeric_boolean")
+    private boolean alert;
+
+    @Column(columnDefinition = "VARCHAR(5)")
+    private String priority;
+
+    public Readings(){
+        this.vin =vin;
+        this.alert =false;
+        this.priority = "NIL";
+    }
 
     public String getVin() {
         return vin;
@@ -115,14 +151,19 @@ public class Readings {
         this.tyre = tyre;
     }
 
-    private boolean checkEngineLoghtOn;
+    public boolean isAlert() {
+        return alert;
+    }
 
-    private boolean engineCoolantLow;
+    public void setAlert(boolean alert) {
+        this.alert = alert;
+    }
 
-    private boolean cruiseControlOn;
+    public String getPriority() {
+        return priority;
+    }
 
-    private float engineRpm;
-
-    private Tyre tyre;
-
+    public void setPriority(String priority) {
+        this.priority = priority;
+    }
 }

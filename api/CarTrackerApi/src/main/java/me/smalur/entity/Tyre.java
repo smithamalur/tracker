@@ -1,10 +1,14 @@
 package me.smalur.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.UUID;
 
 /**
  * Created by Smitha on 6/29/2017.
  */
+@Entity
 public class Tyre {
     @Id
     private String id;
@@ -16,7 +20,7 @@ public class Tyre {
 
 
     public String getId() {
-        return id;
+        return id= UUID.randomUUID().toString();
     }
 
     public void setId(String id) {

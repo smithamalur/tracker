@@ -1,5 +1,8 @@
 package me.smalur.entity;
 
+import com.mysql.cj.api.mysqla.result.ColumnDefinition;
+
+import javax.persistence.Column;
 import javax.persistence.Id;
 
 /**
@@ -8,13 +11,17 @@ import javax.persistence.Id;
 public class Vehicle {
 
     @Id
+    @Column(columnDefinition = "CHAR(17)")
     private String vin;
-
+    @Column(columnDefinition ="VARCHAR(128)")
     private String make;
-
+    @Column(columnDefinition ="VARCHAR(128)")
+    private String model;
     private int year;
-
     private int redlineRpm;
+    private double maxFuelVolume;
+    @Column(columnDefinition ="VARCHAR(24)")
+    private String lastServiceDate;
 
     public String getVin() {
         return vin;
@@ -30,6 +37,14 @@ public class Vehicle {
 
     public void setMake(String make) {
         this.make = make;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
     }
 
     public int getYear() {
@@ -64,9 +79,6 @@ public class Vehicle {
         this.lastServiceDate = lastServiceDate;
     }
 
-    private double maxFuelVolume;
-
-    private String lastServiceDate;
 
 
 
