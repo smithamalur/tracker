@@ -5,6 +5,8 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import java.util.List;
 
 /**
  * Created by Smitha on 6/29/2017.
@@ -15,16 +17,21 @@ public class VehicleRepoImpl implements VehicleRepo{
     @PersistenceContext
     private EntityManager entityManager;
 
-    public Vehicle find(String vin) {
-        return entityManager.find(Vehicle.class, vin);
+
+
+    public Vehicle find(String id) {
+        return entityManager.find(Vehicle.class, id );
+
     }
 
-    public Vehicle create(Vehicle v) {
-         entityManager.persist(v);
-         return v;
+    public void update(Vehicle vehicles)
+    {
+         entityManager.merge(vehicles);
     }
 
-    public Vehicle update(Vehicle v) {
-        return entityManager.merge(v);
+    public void insert(Vehicle v) {
+        entityManager.persist(v);
+
     }
+
 }

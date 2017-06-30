@@ -1,58 +1,35 @@
 package me.smalur.entity;
 
-import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-
+import javax.persistence.*;
+import java.sql.Timestamp;
+import java.util.UUID;
 /**
  * Created by Smitha on 6/29/2017.
  */
 @Entity
+@NamedQueries({
+
+})
 public class Readings {
-
     @Id
-    @Column(columnDefinition = "CHAR(17)")
+    @Column(columnDefinition = "varchar(36)")
     private String vin;
-
     private double latitude;
     private double longitude;
-
-    @Column (columnDefinition = "VARCHAR(24)")
     private String timestamp;
-
-    private float fuelVolume;
-
-    private float speed;
-
-    private float engineHp;
-
-    @Type(type = "numeric_boolean")
-    private boolean checkEngineLoghtOn;
-
-    @Type(type = "numeric_boolean")
+    private double fuelVolume;
+    private int speed;
+    private int engineHp;
+    private boolean checkEngineLightOn;
     private boolean engineCoolantLow;
-
-    @Type(type = "numeric_boolean")
     private boolean cruiseControlOn;
-
-    private float engineRpm;
-
+    private int engineRpm;
     @OneToOne
-    private Tyre tyre;
-
-    @Column(columnDefinition = "numeric_boolean")
-    private boolean alert;
-
-    @Column(columnDefinition = "VARCHAR(5)")
-    private String priority;
+    private Tyre tire;
 
     public Readings(){
-        this.vin =vin;
-        this.alert =false;
-        this.priority = "NIL";
+        this.vin = UUID.randomUUID().toString();
     }
 
     public String getVin() {
@@ -87,36 +64,36 @@ public class Readings {
         this.timestamp = timestamp;
     }
 
-    public float getFuelVolume() {
+    public double getFuelVolume() {
         return fuelVolume;
     }
 
-    public void setFuelVolume(float fuelVolume) {
+    public void setFuelVolume(double fuelVolume) {
         this.fuelVolume = fuelVolume;
     }
 
-    public float getSpeed() {
+    public int getSpeed() {
         return speed;
     }
 
-    public void setSpeed(float speed) {
+    public void setSpeed(int speed) {
         this.speed = speed;
     }
 
-    public float getEngineHp() {
+    public int getEngineHp() {
         return engineHp;
     }
 
-    public void setEngineHp(float engineHp) {
+    public void setEngineHp(int engineHp) {
         this.engineHp = engineHp;
     }
 
-    public boolean isCheckEngineLoghtOn() {
-        return checkEngineLoghtOn;
+    public boolean isCheckEngineLightOn() {
+        return checkEngineLightOn;
     }
 
-    public void setCheckEngineLoghtOn(boolean checkEngineLoghtOn) {
-        this.checkEngineLoghtOn = checkEngineLoghtOn;
+    public void setCheckEngineLightOn(boolean checkEngineLightOn) {
+        this.checkEngineLightOn = checkEngineLightOn;
     }
 
     public boolean isEngineCoolantLow() {
@@ -135,35 +112,19 @@ public class Readings {
         this.cruiseControlOn = cruiseControlOn;
     }
 
-    public float getEngineRpm() {
+    public int getEngineRpm() {
         return engineRpm;
     }
 
-    public void setEngineRpm(float engineRpm) {
+    public void setEngineRpm(int engineRpm) {
         this.engineRpm = engineRpm;
     }
 
-    public Tyre getTyre() {
-        return tyre;
+    public Tyre getTire() {
+        return tire;
     }
 
-    public void setTyre(Tyre tyre) {
-        this.tyre = tyre;
-    }
-
-    public boolean isAlert() {
-        return alert;
-    }
-
-    public void setAlert(boolean alert) {
-        this.alert = alert;
-    }
-
-    public String getPriority() {
-        return priority;
-    }
-
-    public void setPriority(String priority) {
-        this.priority = priority;
+    public void setTire(Tyre tire) {
+        this.tire = tire;
     }
 }

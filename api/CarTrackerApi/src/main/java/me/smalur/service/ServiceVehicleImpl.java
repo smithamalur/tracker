@@ -1,62 +1,32 @@
 package me.smalur.service;
 
 import me.smalur.entity.Vehicle;
-import me.smalur.exception.BadRequestException;
 import me.smalur.exception.ResourceNotFoundException;
 import me.smalur.repository.VehicleRepo;
+import me.smalur.repository.VehicleRepoImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 /**
  * Created by Smitha on 6/29/2017.
  */
 @Service
-public class ServiceVehicleImpl implements ServiceVehicle{
+public class ServiceVehicleImpl implements ServiceVehicle {
+
     @Autowired
-    VehicleRepo vrep;
+    private VehicleRepo vehicleRepository;
 
     @Transactional
-    public List<Vehicle> put(List<Vehicle> v){
-        if( v== null || v.size()==0){
-            throw new BadRequestException("PUT request should have a body");
-        }
-
-        for(Vehicle vehicle: v){
-            Vehicle tempvehicle = this.find(vehicle.getVin());
-            if(tempvehicle == null){
-                this.create(vehicle);
-
+    public void insert(List<Vehicle> vehicleList) {
+        for (Vehicle v : vehicleList) {
+            Vehicle existingVehicle = vehicleRepository.find(v.getVin());
+            if (existingVehicle == null) {
+                vehicleRepository.insert(v);
             }
-            else{
-                this.update(vehicle);
-            }
+            vehicleRepository.update(v);
         }
-        return v;
-    }
-
-    public Vehicle find(String vin) {
-        return vrep.find(vin);
-    }
-
-
-    public Vehicle update(Vehicle v) {
-        Vehicle tempvehicle = this.find(v.getVin());
-        if(tempvehicle == null)
-            throw new ResourceNotFoundException(v.getVin()+"Unavailable");
-
-        return vrep.update(v);
-    }
-
-
-    public Vehicle create(Vehicle v) {
-        Vehicle tempvehicle = this.find(v.getVin());
-
-        if(tempvehicle != null){
-            throw new BadRequestException(v.getVin()+"already exists");
-        }
-        return vrep.create(v);
     }
 }

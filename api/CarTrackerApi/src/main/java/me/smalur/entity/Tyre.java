@@ -11,57 +11,56 @@ import java.util.UUID;
 @Entity
 public class Tyre {
     @Id
-    private String id;
+    @Column(columnDefinition = "varchar(36)")
+    private String tireId;
+    private double frontLeft;
+    private double frontRight;
+    private double rearLeft;
+    private double rearRight;
 
-
-    private float frontLeft;
-
-    private float frontRight;
-
-
-    public String getId() {
-        return id= UUID.randomUUID().toString();
+    public Tyre(){
+        this.tireId = UUID.randomUUID().toString();
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getTireId() {
+        return tireId;
     }
 
-    public float getFrontLeft() {
+    public void setTireId(String tireId) {
+        this.tireId = tireId;
+    }
+
+    public double getFrontLeft() {
         return frontLeft;
     }
 
-    public void setFrontLeft(float frontLeft) {
+    public void setFrontLeft(double frontLeft) {
         this.frontLeft = frontLeft;
     }
 
-    public float getFrontRight() {
+    public double getFrontRight() {
         return frontRight;
     }
 
-    public void setFrontRight(float frontRight) {
+    public void setFrontRight(double frontRight) {
         this.frontRight = frontRight;
     }
 
-    public float getRearleft() {
-        return rearleft;
+    public double getRearLeft() {
+        return rearLeft;
     }
 
-    public void setRearleft(float rearleft) {
-        this.rearleft = rearleft;
+    public void setRearLeft(double rearLeft) {
+        this.rearLeft = rearLeft;
     }
 
-    public float getRearRight() {
+    public double getRearRight() {
         return rearRight;
     }
 
-    public void setRearRight(float rearRight) {
+    public void setRearRight(double rearRight) {
         this.rearRight = rearRight;
     }
-
-    private float rearleft;
-
-    private float rearRight;
 
 
 }

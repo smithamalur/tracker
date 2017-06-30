@@ -1,36 +1,27 @@
 package me.smalur.controller;
 
-import com.sun.org.apache.regexp.internal.RE;
 import me.smalur.entity.Vehicle;
 import me.smalur.service.ServiceVehicle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-
-import java.awt.*;
 import java.util.List;
 
 /**
  * Created by Smitha on 6/29/2017.
  */
-@RestController //@Controller + @Responsebody
-@RequestMapping(path="vehicles")
+@CrossOrigin(origins = {"http://mocker.egen.io","http://localhost:8080"}, maxAge = 3600)
+@RestController
+@RequestMapping(value="vehicles")
 public class ControllerVehicle {
 
     @Autowired
-    ServiceVehicle servicevehicle;
+    private ServiceVehicle vehicleService;
 
-    @RequestMapping(method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<Vehicle> get(){
-        return null;
-
-    }
-    @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE
-            , consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @CrossOrigin
-    public List<Vehicle> put(@RequestBody List<Vehicle> vehicles){
-        return servicevehicle.put(vehicles);
-
-
+    @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public void insert(@RequestBody List<Vehicle> vehicle) {
+        vehicleService.insert(vehicle);
     }
 }
+

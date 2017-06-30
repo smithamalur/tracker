@@ -2,26 +2,31 @@ package me.smalur.entity;
 
 import com.mysql.cj.api.mysqla.result.ColumnDefinition;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.UUID;
 
 /**
  * Created by Smitha on 6/29/2017.
  */
+@Entity
+@NamedQueries({
+
+})
 public class Vehicle {
 
     @Id
-    @Column(columnDefinition = "CHAR(17)")
+    @Column(columnDefinition = "varchar(36)")
     private String vin;
-    @Column(columnDefinition ="VARCHAR(128)")
     private String make;
-    @Column(columnDefinition ="VARCHAR(128)")
     private String model;
     private int year;
     private int redlineRpm;
-    private double maxFuelVolume;
-    @Column(columnDefinition ="VARCHAR(24)")
+    private int maxFuelVolume;
     private String lastServiceDate;
+
+    public Vehicle(){
+        this.vin = UUID.randomUUID().toString();
+    }
 
     public String getVin() {
         return vin;
@@ -63,11 +68,11 @@ public class Vehicle {
         this.redlineRpm = redlineRpm;
     }
 
-    public double getMaxFuelVolume() {
+    public int getMaxFuelVolume() {
         return maxFuelVolume;
     }
 
-    public void setMaxFuelVolume(double maxFuelVolume) {
+    public void setMaxFuelVolume(int maxFuelVolume) {
         this.maxFuelVolume = maxFuelVolume;
     }
 
@@ -78,9 +83,5 @@ public class Vehicle {
     public void setLastServiceDate(String lastServiceDate) {
         this.lastServiceDate = lastServiceDate;
     }
-
-
-
-
 
 }
